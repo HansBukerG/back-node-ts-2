@@ -1,4 +1,5 @@
 import Companies from "../models/Companies.model";
+import Employees from "../models/Employees.model";
 
 const createCompany = async (name: string, rut: string, address: string, phone: string): Promise<Companies> => {
     const company = await Companies.create({
@@ -34,11 +35,18 @@ const updateCompany = async (companyId: number, name?: string, rut?: string, add
 };
 
 const deleteCompany = async (companyId: number): Promise<number> => {
+    await Employees.destroy({
+        where: {
+            id_company: companyId,
+        },
+    })
     const deletedCompany = await Companies.destroy({
         where: {
             id: companyId,
         },
     });
+
+
     return deletedCompany;
 };
 

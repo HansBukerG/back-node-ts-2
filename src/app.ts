@@ -9,8 +9,6 @@ import Companies from './models/Companies.model';
 import Employees from './models/Employees.model';
 import sequelize from './database/client.database';
 
-// Create Express server
-
 const appInit = () => {
     //app sync with PG database
     sequelize.authenticate();

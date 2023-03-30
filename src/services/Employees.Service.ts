@@ -34,7 +34,6 @@ const updateEmployee = async (employeeId: number, companyId?: number, employeeRu
     if (email) employee.email = email;
 
     await employee.save();
-
     return employee;
 };
 
