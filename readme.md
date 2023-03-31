@@ -28,7 +28,6 @@ Now, to run this project, you need to open a terminal in the location of the doc
 command:
 
 -> docker-compose up
-
 ## Environment Variables
 
 This project has a .env file which contains important information related to connection routes and database connection:
@@ -46,6 +45,8 @@ PG_DATABASE=
 PG_USER=
 
 PG_PASSWORD=
+
+
 
 ## API Reference
 
@@ -121,11 +122,14 @@ DTO required:
 ## Links to the Project
  Live url:
 
-  - [https://front-sl-challenge.fly.dev](https://front-sl-challenge.fly.dev)
+  - [https://back-sl-challenge.fly.dev/](https://back-sl-challenge.fly.dev/)
 
 Github Project:
- - [https://github.com/HansBukerG/front-sl-challenge](https://github.com/HansBukerG/front-sl-challenge)
+ - [https://github.com/HansBukerG/back-node-ts-2](https://github.com/HansBukerG/back-node-ts-2)
 
+Docker Image:
+
+ - [https://hub.docker.com/r/hansbukerg/back-sl-challenge](https://hub.docker.com/r/hansbukerg/back-sl-challenge)
 
  
 
