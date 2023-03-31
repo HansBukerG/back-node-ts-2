@@ -1,8 +1,9 @@
 import { Router } from "express"
-import { postEmployee } from "../controllers/Employees.controller";
+import { deleteEmployeeId, postEmployee } from "../controllers/Employees.controller";
 
 const routerEmployee = Router();
 
 routerEmployee.post('/employee/post', postEmployee);
+routerEmployee.delete('/employee/delete/:id', deleteEmployeeId);
 
 export { routerEmployee }

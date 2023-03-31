@@ -1,0 +1,7 @@
+docker build --tag back-sl-challenge .
+
+docker run -d -p 8087:8087 --name back-sl-challenge back-sl-challenge
+
+flyctl launch
+
+flyctl deploy

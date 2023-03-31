@@ -1,7 +1,7 @@
 import 'dotenv/config.js';
 import { Request, Response } from 'express';
 import Employees from '../models/Employees.model';
-import { createCompany, getCompanies, getCompanyById } from '../services/Companies.Service';
+import { createCompany, deleteCompany, getCompanies, getCompanyById } from '../services/Companies.Service';
 import { getAllEmployees } from '../services/Employees.Service';
 
 const postCompany = async (req: Request, res: Response): Promise<void> => {
@@ -49,4 +49,13 @@ const getCompanyId = async (req: Request, res: Response): Promise<void> => {
     }
 }
 
-export { postCompany, getAllCompanies, getCompanyId }
+const deleteCompanyById = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const companyId = parseInt(req.params.id, 10);
+        const deletedCompany = await deleteCompany(companyId);
+        res.status(200)
+    } catch (error) {
+        res.status(500)
+    }
+}
+export { postCompany, getAllCompanies, getCompanyId, deleteCompanyById }

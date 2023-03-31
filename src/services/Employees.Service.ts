@@ -24,21 +24,6 @@ const getEmployeeById = async (employeeId: number): Promise<Employees | null> =>
     return employee ? employee.toJSON() : null;
 };
 
-const updateEmployee = async (employeeId: number, companyId?: number, employeeRut?: string, fullName?: string, email?: string): Promise<Employees | null> => {
-    const employee = await Employees.findByPk(employeeId);
-
-    if (!employee) return null;
-    if (companyId) employee.id_company = companyId;
-    if (employeeRut) employee.rut_employee = employeeRut;
-    if (fullName) employee.full_name = fullName;
-    if (email) employee.email = email;
-
-    await employee.save();
-
-    return employee;
-};
-
-
 const deleteEmployee = async (employeeId: number): Promise<number> => {
     const deletedEmployeeCount = await Employees.destroy({
         where: {
@@ -52,6 +37,5 @@ export {
     createEmployee,
     getAllEmployees,
     getEmployeeById,
-    updateEmployee,
     deleteEmployee,
 };

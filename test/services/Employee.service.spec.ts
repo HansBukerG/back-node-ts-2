@@ -1,5 +1,5 @@
 import { createCompany } from "../../src/services/Companies.Service";
-import { createEmployee, getAllEmployees, getEmployeeById, updateEmployee, deleteEmployee } from "../../src/services/Employees.Service";
+import { createEmployee, getAllEmployees, getEmployeeById, deleteEmployee } from "../../src/services/Employees.Service";
 import Employees from "../../src/models/Employees.model";
 import Companies from "../../src/models/Companies.model";
 
@@ -184,59 +184,6 @@ describe('getEmployeeById', () => {
         await Companies.destroy({ where: { id: companyId } });
     });
 });
-
-// describe('updateEmployee', () => {
-//     let companyId: number;
-//     let employeeId: number;
-
-//     beforeAll(async () => {
-//         const companyData = {
-//             name: 'Test Company',
-//             rut: '18.389.654564564-5',
-//             address: '123 Main St',
-//             phone: '555-1234',
-//         };
-//         const newCompany = await createCompany(
-//             companyData.name,
-//             companyData.rut,
-//             companyData.address,
-//             companyData.phone
-//         );
-//         companyId = newCompany.id;
-
-//         const employeeData = {
-//             id_company: companyId,
-//             rut_employee: '12.345.65465-9',
-//             full_name: 'John Doe',
-//             email: 'johndoe@test.com',
-//         };
-//         const newEmployee = await createEmployee(
-//             employeeData.id_company,
-//             employeeData.rut_employee,
-//             employeeData.full_name,
-//             employeeData.email
-//         );
-//         employeeId = newEmployee.id;
-//     });
-
-//     it('should update an employee with new data', async () => {
-//         const updatedEmployee = await updateEmployee(employeeId, companyId, '12.345.123-4', 'Jane Doe', 'janedoe@test.com');
-//         expect(updatedEmployee?.id_company).toEqual(companyId);
-//         expect(updatedEmployee?.rut_employee).toEqual('12.345.123-4');
-//         expect(updatedEmployee?.full_name).toEqual('Jane Doe');
-//         expect(updatedEmployee?.email).toEqual('janedoe@test.com');
-//     });
-
-//     it('should return null when trying to update a non-existent employee', async () => {
-//         const updatedEmployee = await updateEmployee(99999, companyId, '12.345.123-4', 'Jane Doe', 'janedoe@test.com');
-//         expect(updatedEmployee).toBeNull();
-//     });
-
-//     afterAll(async () => {
-//         await Employees.destroy({ where: { id_company: companyId } });
-//         await Companies.destroy({ where: { id: companyId } });
-//     });
-// });
 
 describe('deleteEmployee', () => {
     let companyId: number;
