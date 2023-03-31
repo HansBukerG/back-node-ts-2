@@ -16,28 +16,13 @@ services:
     image: back-sl-challenge
     restart: always
     ports:
-      - "8087:8087"
+      - "8081:8081"
     environment:
       - DATABASE_URL=postgres://root:root@db:5432/simpliLatamChallenge
     depends_on:
       - db
     networks:
       - backend-network
-  frontend:
-    image: front-sl-challenge
-    restart: always
-    ports:
-      - "8090:8080"
-    depends_on:
-      - backend
-    networks:
-      - backend-network
-  # postman:
-  #   image: postman/newman:alpine
-  #   ports:
-  #     - "8080:8080"
-  #   networks:
-  #     - backend-network
 
 networks:
   backend-network:
