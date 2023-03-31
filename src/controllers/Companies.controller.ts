@@ -23,6 +23,10 @@ const postCompany = async (req: Request, res: Response): Promise<void> => {
 const getAllCompanies = async (req: Request, res: Response): Promise<void> => {
     try {
         const allCompanyData = await getCompanies();
+
+        // res.header('Access-Control-Allow-Origin', '*');
+        // res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+        // res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
         res.status(200).json({ company: allCompanyData });
     } catch (error) {
         res.status(500).json({ message: 'Internal server error' });
