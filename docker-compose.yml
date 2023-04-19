@@ -1,16 +1,45 @@
 version: '3'
 services:
+
+  # MongoDB Server 
+  mongodb:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    ports:
+      - "27019:27017"
+
+  # Database Server
+  # db:
+  #   image: postgres
+  #   restart: always
+  #   environment:
+  #     POSTGRES_USER: root
+  #     POSTGRES_PASSWORD: root
+  #     POSTGRES_DB: simpliLatamChallenge
+  #     # i need to add budgetDatabase manually
+  #   ports:
+  #     - "5433:5432"
+  #   networks:
+  #     - backend-network
+
+  # Database Server
   db:
     image: postgres
     restart: always
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
-      POSTGRES_DB: simpliLatamChallenge
+      POSTGRES_DB: simpliLatamChallenge2
+      # i need to add budgetDatabase manually
     ports:
-      - "5435:5432"
+      - "5433:5432"
     networks:
       - backend-network
+
+  # Back-end Servers
 
   backend:
     image: back-sl-challenge
@@ -19,8 +48,44 @@ services:
       - "8081:8081"
     environment:
       - DATABASE_URL=postgres://root:root@db:5432/simpliLatamChallenge
+      - PORT=8081
+      - PG_DIALECT=postgres
+      - PG_HOST=db
+      - PG_PORT=5432
+      - PG_DATABASE=databaseSecondary
+      - PG_USER=root
+      - PG_PASSWORD=root
     depends_on:
       - db
+    command:
+      [
+        "wait-for-it",
+        "db:5432",
+        "--",
+        "node",
+        "./dist/src/server.js"
+      ]
+    networks:
+      - backend-network
+
+  backendBudget:
+    image: back-presupuesto-node
+    restart: always
+    ports:
+      - "8085:8085"
+    environment:
+      - DATABASE_URL=postgres://root:root@db:5432/simpliLatamChallenge
+      - HTTP_PORT=8085
+      - PG_DIALECT=postgres
+      - PG_HOST=db
+      - PG_PORT=5432
+      - PG_DATABASE=budgetDatabase
+      - PG_USER=root
+      - PG_PASSWORD=root
+      - JWT_SECRET_KEY='testing'
+    depends_on:
+      - db
+    command: [ "node", "./index.js" ]
     networks:
       - backend-network
 

@@ -9,3 +9,5 @@ dist
 
 fly.toml
 MAKEPROJECT
+Dockerfile
+.gitignore

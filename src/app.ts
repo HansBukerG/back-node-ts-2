@@ -31,26 +31,29 @@ const options: cors.CorsOptions = {
 // AllowCredentials: true,
 // AllowedMethods:   []string{"GET"},
 
-const appInit = () => {
+const appInit = async () => {
     //app sync with PG database
-    sequelize.authenticate();
-    Companies.sync();
-    Employees.sync();
+    try {
+        await sequelize.authenticate();
+        await Companies.sync();
+        await Employees.sync();
 
-    routerCompany.use(cors(options))
-    routerEmployee.use(cors(options))
-    const app = express()
-    console.log('app init');
+        routerCompany.use(cors(options))
+        routerEmployee.use(cors(options))
+        const app = express()
+        console.log('app init');
 
-    app.use(cors(options));
-    app.use(bodyParser.urlencoded({ extended: true }))
-    app.use(bodyParser.json())
-    app.use(routerCompany);
-    app.use(routerEmployee);
+        app.use(cors(options));
+        app.use(bodyParser.urlencoded({ extended: true }))
+        app.use(bodyParser.json())
+        app.use(routerCompany);
+        app.use(routerEmployee);
 
-    const port = process.env.PORT || 3001;
-    app.listen(port, () => console.log(`Rest ready to listen in port: ${port}`))
-
+        const port = process.env.PORT || 3001;
+        app.listen(port, () => console.log(`Rest ready to listen in port: ${port}`))
+    } catch (error) {
+        console.error(`App failed on start, error: ${error}`);
+    }
 }
 
 
